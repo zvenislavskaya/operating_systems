@@ -1,0 +1,30 @@
+_Z9fibonaccii:
+.LFB0:
+    testl   %edi, %edi       # Проверка n <= 0
+    jle     .L4             # Если n <= 0, переход к .L4
+    cmpl    $1, %edi        # Сравнение n с 1
+    je      .L5             # Если n == 1, переход к .L5
+    pushq   %rbx            # Сохраняем регистр %rbx
+    movl    %edi, %ebx      # Сохраняем n в %ebx
+    
+    # Первый рекурсивный вызов (n-1)
+    leal    -1(%rdi), %edi  # Вычисляем n-1 прямо в %edi
+    call    _Z9fibonaccii   # Вызов fibonacci(n-1)
+    movl    %eax, %edi      # Сохраняем результат в %edi
+    
+    # Второй рекурсивный вызов (n-2)
+    leal    -2(%rbx), %eax  # Вычисляем n-2 в %eax
+    movl    %eax, %esi      # Копируем в %esi для вызова
+    call    _Z9fibonaccii   # Вызов fibonacci(n-2)
+    
+    addl    %esi, %eax      # Суммируем результаты
+    popq    %rbx            # Восстанавливаем %rbx
+    ret                     # Возврат
+    
+.L4:
+    xorl    %eax, %eax      # Возвращаем 0 (случай n <= 0)
+    ret
+    
+.L5:
+    movl    $1, %eax        # Возвращаем 1 (случай n == 1)
+    ret
