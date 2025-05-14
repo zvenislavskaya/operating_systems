@@ -364,8 +364,31 @@ clean:
 
 
 ## <a id="lab2">Лабораторная работа №2</a>
-
-
+Я скачала VirtualBox. Затем начала создавать виртуальную машину из командной строки.
+```bash
+VBoxManage createvm --name "Linux_VM" --ostype "Linux_64" --register
+```
+Нстроила память и подключила жеский диск:
+```bash
+VBoxManage modifyvm "NikePro" --memory 2048
+VBoxManage createmedium disk --filename "Linux_VM.vdi" --size 20000
+VBoxManage storagectl "Linux_VM" --name "SATA Controller" --add sata
+VBoxManage storageattach "Linux_VM" --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium "Linux_VM.vdi"
+```
+Добавила CD/DVD-привода и подключение ISO (сначло я подключила System Rescue CD **64!**, но возникли проблемы в дальнейшем, и я подключила debian).
+```bash
+VBoxManage storagectl "Linux_VM" --name "IDE Controller" --add ide
+VBoxManage storageattach "Linux_VM" --storagectl "IDE Controller" --port 0 --device 0 --type dvddrive --medium ""C:\Users\zveni\Downloads\debian-12.10.0-amd64-netinst.iso""
+```
+Настроила сеть (режим моста — bridge):
+```bash
+VBoxManage modifyvm "Linux_VM" --nic1 bridged --bridgeadapter1 eth0
+```
+Запустила виртуальную машину:
+```bash
+VBoxManage startvm "Linux_VM" --type gui
+```
+Что было дальше, вы можете узнать, посмотрев видео в папке lab2.
 
 
 ## <a id="lab3">Лабораторная работа №3a</a>
