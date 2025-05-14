@@ -388,7 +388,7 @@ VBoxManage modifyvm "Linux_VM" --nic1 bridged --bridgeadapter1 eth0
 ```bash
 VBoxManage startvm "Linux_VM" --type gui
 ```
-Что было дальше, вы можете узнать, посмотрев видео в папке lab2.
+Что было дальше, вы можете узнать, посмотрев видео lab2.
 
 
 ## <a id="lab3">Лабораторная работа №3a</a>
